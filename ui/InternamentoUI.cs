@@ -1,0 +1,1 @@
+//comandos relacionados aos internamentos, como adicionar, remover, editar e listar.

@@ -1,0 +1,15 @@
+C:\Users\mateu\Documents\Sau10\bin\Debug\net7.0\Sau10.exe
+C:\Users\mateu\Documents\Sau10\bin\Debug\net7.0\Sau10.deps.json
+C:\Users\mateu\Documents\Sau10\bin\Debug\net7.0\Sau10.runtimeconfig.json
+C:\Users\mateu\Documents\Sau10\bin\Debug\net7.0\Sau10.dll
+C:\Users\mateu\Documents\Sau10\bin\Debug\net7.0\Sau10.pdb
+C:\Users\mateu\Documents\Sau10\obj\Debug\net7.0\Sau10.csproj.AssemblyReference.cache
+C:\Users\mateu\Documents\Sau10\obj\Debug\net7.0\Sau10.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mateu\Documents\Sau10\obj\Debug\net7.0\Sau10.AssemblyInfoInputs.cache
+C:\Users\mateu\Documents\Sau10\obj\Debug\net7.0\Sau10.AssemblyInfo.cs
+C:\Users\mateu\Documents\Sau10\obj\Debug\net7.0\Sau10.csproj.CoreCompileInputs.cache
+C:\Users\mateu\Documents\Sau10\obj\Debug\net7.0\Sau10.dll
+C:\Users\mateu\Documents\Sau10\obj\Debug\net7.0\refint\Sau10.dll
+C:\Users\mateu\Documents\Sau10\obj\Debug\net7.0\Sau10.pdb
+C:\Users\mateu\Documents\Sau10\obj\Debug\net7.0\Sau10.genruntimeconfig.cache
+C:\Users\mateu\Documents\Sau10\obj\Debug\net7.0\ref\Sau10.dll

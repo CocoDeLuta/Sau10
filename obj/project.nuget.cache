@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "6zVJSqYgvtRQaLOIe5AjcVMyvMSfvQ9qPGzZT7fDsyUC6ss0Aniwx4i1t+dxKWnqBJCKuJqganV6KdgD10MJZQ==",
+  "success": true,
+  "projectFilePath": "c:\\Users\\mateu\\Documents\\Sau10\\Sau10.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mateu\\.nuget\\packages\\microsoft.netcore.platforms\\7.0.3\\microsoft.netcore.platforms.7.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

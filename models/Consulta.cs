@@ -1,19 +1,19 @@
 public class Consulta
 {
     public int Id { get; set; }
-    public string Data { get; set; }
-    public string Hora { get; set; }
+    public DateTime DateTime { get; set; }
     public string Descricao { get; set; }
-    public string Status { get; set; }
-    public int IdPaciente { get; set; }
-    public int IdFuncionario { get; set; }
-    public Consulta(string data, string hora, string descricao, string status, int idPaciente, int idFuncionario)
+    //public List<Paciente> Pacientes { get; set; }
+    public List<Funcionario> Funcionarios { get; set; }
+
+    //Construtor
+    public Consulta(DateTime dateTime, string descricao)
     {
-        Data = data;
-        Hora = hora;
+        DateTime = dateTime;
         Descricao = descricao;
-        Status = status;
-        IdPaciente = idPaciente;
-        IdFuncionario = idFuncionario;
+    }
+
+    public Consulta(){
+
     }
 }

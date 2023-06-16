@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\mateu\\Documents\\Sau10\\Sau10.csproj": {}
+    "C:\\Users\\mateu\\Documents\\UTF\\Coimbra\\Sau10\\Sau10.csproj": {}
   },
   "projects": {
-    "c:\\Users\\mateu\\Documents\\Sau10\\Sau10.csproj": {
+    "C:\\Users\\mateu\\Documents\\UTF\\Coimbra\\Sau10\\Sau10.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\mateu\\Documents\\Sau10\\Sau10.csproj",
+        "projectUniqueName": "C:\\Users\\mateu\\Documents\\UTF\\Coimbra\\Sau10\\Sau10.csproj",
         "projectName": "Sau10",
-        "projectPath": "c:\\Users\\mateu\\Documents\\Sau10\\Sau10.csproj",
+        "projectPath": "C:\\Users\\mateu\\Documents\\UTF\\Coimbra\\Sau10\\Sau10.csproj",
         "packagesPath": "C:\\Users\\mateu\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\mateu\\Documents\\Sau10\\obj\\",
+        "outputPath": "C:\\Users\\mateu\\Documents\\UTF\\Coimbra\\Sau10\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mateu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,9 +40,29 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Microsoft.NETCore.Platforms": {
               "target": "Package",
               "version": "[7.0.3, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             }
           },
           "imports": [

@@ -1,0 +1,18 @@
+{
+    "dotnet.defaultSolution": "Sau10.sln",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "hospital",
+            "database": "hospital",
+            "username": "root",
+            "password": ""
+        }
+    ]
+}

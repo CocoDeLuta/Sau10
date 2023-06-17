@@ -79,3 +79,8 @@ C:\Users\mateu\Documents\UTF\Coimbra\Sau10\obj\Debug\net7.0\Sau10.csproj.CopyCom
 C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\Microsoft.Extensions.Configuration.dll
 C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\MySqlConnector.dll
 C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\Humanizer.dll
+C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\System.CodeDom.dll

@@ -16,4 +16,9 @@ public class Pessoa
         Cpf = cpf;
     }
 
+
+    public Pessoa(){
+        
+    }
+
 }

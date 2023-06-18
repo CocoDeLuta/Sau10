@@ -70,7 +70,7 @@ public class PacienteUI
 
     }
 
-    void CadastrarPaciente(Funcionario user)
+    public void CadastrarPaciente(Funcionario user)
     {
 
         var controller = new CPaciente();
@@ -91,27 +91,26 @@ public class PacienteUI
         string telefone = Console.ReadLine();
         Console.WriteLine("Digite o CPF do paciente:");
         string cpf = Console.ReadLine();
-        Console.WriteLine("Digite a data de nascimento do paciente (YYYY-MM-DD):");
+        Console.WriteLine("Digite a data de nascimento do paciente (aaaa-mm-dd).");
+        Console.WriteLine("Exemplo: 1990-01-01");
         DateOnly dataNascimento;
 
         if (DateOnly.TryParse(Console.ReadLine(), out dataNascimento) == false)
         {
             utils.ErrorMessage("Data inválida!");
         }
-        else
-        {
-            try
-            {
-                Paciente paciente = new Paciente(nome, sobrenome, telefone, cpf, dataNascimento);
-                controller.Inserir(paciente);
 
-                utils.SuccessMessage("Paciente cadastrado com sucesso!");
-            }
-            catch (Exception e)
-            {
-                utils.ErrorMessage("Erro ao cadastrar paciente.");
-                return;
-            }
+        try
+        {
+            Paciente paciente = new Paciente(nome, sobrenome, telefone, cpf, dataNascimento);
+            controller.Inserir(paciente);
+
+            utils.SuccessMessage("Paciente cadastrado com sucesso!");
+        }
+        catch (Exception e)
+        {
+            utils.ErrorMessage("Erro ao cadastrar paciente.");
+            return;
         }
     }
 

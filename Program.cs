@@ -16,7 +16,7 @@ utils.Enter();
 int opcao = 9;
 while (opcao != 0)
 {
-    utils.TituloMenu("MENU INICIAL");
+    utils.TituloMenu("SAU10");
 
     Console.WriteLine("Para começar a usar o Sau10, primeiro efetue o login.");
     Console.WriteLine("Caso não possua um usuário, entre em contato com um administrador.");

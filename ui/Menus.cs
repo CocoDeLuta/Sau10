@@ -80,7 +80,7 @@ public class Menus
                         opcao = 999;
                         break;
                     case 2:
-                        //GerenciarInternamentos();
+                        InternamentoUI.MenuInternamento(user);
                         opcao = 999;
                         break;
                     case 3:

@@ -3,19 +3,18 @@ public class Internamento
     public int Id { get; set; }
     public DateOnly DataEntrada { get; set; }
     public DateOnly? DataSaida { get; set; }
+    public int PacienteId { get; set; }
+    public int FuncionarioId { get; set; }
+    public int NumeroQuarto { get; set; }
     public string Motivo { get; set; }
 
-    public Internamento(DateOnly dataEntrada, string motivo)
+    public Internamento(DateOnly dataEntrada, string motivo, int pacienteId, int funcionarioId, int numeroQuarto)
     {
         DataEntrada = dataEntrada;
         Motivo = motivo;
-    }
-
-    public Internamento(DateOnly dataEntrada, DateOnly dataSaida, string motivo)
-    {
-        DataEntrada = dataEntrada;
-        DataSaida = dataSaida;
-        Motivo = motivo;
+        PacienteId = pacienteId;
+        FuncionarioId = funcionarioId;
+        NumeroQuarto = numeroQuarto;
     }
 
     public Internamento()
@@ -23,13 +22,16 @@ public class Internamento
 
     }
 
-    public void ToString()
+    public string Status()
     {
-        Console.WriteLine("---------------------------------------");
-        Console.WriteLine("Id: " + Id);
-        Console.WriteLine("Data de Entrada: " + DataEntrada);
-        Console.WriteLine("Data de Saida: " + DataSaida);
-        Console.WriteLine("Motivo do Internamento: " + Motivo);
+        if (DataSaida == null)
+        {
+            return "Internado";
+        }
+        else
+        {
+            return Convert.ToString(DataSaida);
+        }
     }
 
 }

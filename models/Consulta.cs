@@ -8,26 +8,21 @@ public class Consulta
     public DateOnly Data { get; set; }
     public string Descricao { get; set; }
     public int PacienteId { get; set; }
-    public int FuncionarioId { get; set; }
+    public int MedicoId { get; set; }
 
 
     //Construtor
-    public Consulta( DateOnly dateTime, string descricao)
+    public Consulta(DateOnly dateTime, string descricao, int pacienteId, int medicoId)
     {
         Data = dateTime;
         Descricao = descricao;
+        PacienteId = pacienteId;
+        MedicoId = medicoId;
     }
 
-    public Consulta(){
-
-    }
-
-    public void ToString()
+    public Consulta()
     {
-        Console.WriteLine("---------------------------------------");
-        Console.WriteLine("Id: " + Id);
-        Console.WriteLine("" + Data.ToString());
-        Console.WriteLine("" + Descricao);
 
     }
+
 }

@@ -14,19 +14,10 @@ public class Paciente : Pessoa
 
     }
 
-    public void ToStringNomeCompleto()
-    {
-        Console.WriteLine("Paciente: " + Nome + " " + SobreNome);
+    public string ToStringNomeCompleto()
+    {   
+        string nome = Nome + " " + SobreNome;
+        return nome;
     }
 
-    public void ToString()
-    {
-        Console.WriteLine("---------------------------------------");
-        Console.WriteLine("Id: " + Id);
-        Console.WriteLine("Nome: " + Nome);
-        Console.WriteLine("Sobrenome: " + SobreNome);
-        Console.WriteLine("Telefone: " + Telefone);
-        Console.WriteLine("CPF: " + Cpf);
-        Console.WriteLine("Data de Nascimento: " + DataNascimento);
-    }
 }

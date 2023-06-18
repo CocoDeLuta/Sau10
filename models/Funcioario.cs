@@ -1,14 +1,23 @@
 public class Funcionario : Pessoa
 {
-    public int? CargoId { get; set; }
+    public int CargoId { get; set; }
     public double Salario { get; set; }
+    public bool Ativo { get; set; }
+    public string Usuario { get; set; }
+    public string Senha { get; set; }
+    public int Permissao { get; set; }
 
-    public Funcionario(string nome, string sobreNome, 
-    string telefone, string cpf, int cargo, double salario)
+
+    public Funcionario(string user, string senha, int permissao, string nome, string sobreNome,
+    string telefone, string cpf, int cargo, double salario, bool ativo)
      : base(nome, sobreNome, telefone, cpf)
     {
+        Usuario = user;
+        Senha = senha;
+        Permissao = permissao;
         CargoId = cargo;
         Salario = salario;
+        Ativo = ativo;
     }
 
     public Funcionario()
@@ -16,18 +25,24 @@ public class Funcionario : Pessoa
 
     }
 
-    public void ToString()
+    public string ToStringNomeCompleto()
     {
-        Console.WriteLine("-----------------------------------");
-        Console.WriteLine("Id: " + Id);
-        Console.WriteLine($"Nome: {Nome} {SobreNome}");
-        Console.WriteLine("Salário: " + Salario);
-        Console.WriteLine("Telefone: " + Telefone);
-        Console.WriteLine("CPF: " + Cpf);
+        string nome = Nome + " " + SobreNome;
+        return nome;
     }
 
-    public void ToStringNomeCompleto()
+    public string NivelAcesso()
     {
-        Console.WriteLine(Nome + " " + SobreNome);
+        switch (Permissao)
+        {
+            case 2:
+                return "Médico";
+            case 3:
+                return "Administrador";
+            case 1:
+                return "Enfermeiro";
+            default:
+                return "Usuário";
+        }
     }
 }

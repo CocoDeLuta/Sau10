@@ -19,6 +19,17 @@ public class Utils
         Console.WriteLine("");
     }
 
+    //metodo para verificar a permissao do usuario
+    public bool Permissao(int user, int permissao)
+    {
+        if (user < permissao)
+        {
+            ErrorMessage("Você não tem permissão para acessar essa opção!");
+            return false;
+        }
+        return true;
+    }
+
     //metodo para aguardar o usuario pressionar enter
     public void Enter()
     {

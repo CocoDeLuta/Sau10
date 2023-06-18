@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Sau10.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230618045326_relacoes")]
+    partial class relacoes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,24 +78,13 @@ namespace Sau10.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Permissao")
-                        .HasColumnType("int");
-
                     b.Property<double>("Salario")
                         .HasColumnType("double");
-
-                    b.Property<string>("Senha")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<string>("SobreNome")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Telefone")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Usuario")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");

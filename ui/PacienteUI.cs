@@ -3,29 +3,25 @@ using ConsoleTables;
 
 public class PacienteUI
 {
-    public void MenuPaciente()
+    public void MenuPaciente(Funcionario user)
     {
         //Menu Funcionario
         var utils = new Utils();
-        int opcao = 0;
-        while (opcao != 5)
+        int opcao = 999;
+        while (opcao != 0)
         {
-            Console.Clear();
-            utils.Yellow();
-            Console.WriteLine("MENU PACIENTE");
-            Console.WriteLine("");
-            utils.White();
+            utils.TituloMenu("MENU PACIENTE");
+
             Console.WriteLine("Selecione uma opção:");
             Console.WriteLine("1 - Listar pacientes");
             Console.WriteLine("2 - Cadastrar pacientes");
-            Console.WriteLine("3 - Remover registro do paciente");
-            Console.WriteLine("4 - Atualizar registro do paciente");
-            Console.WriteLine("5 - Voltar");
+            Console.WriteLine("3 - Atualizar registro do paciente");
+            Console.WriteLine("0 - Voltar");
             Console.WriteLine("");
             Console.Write("Opção: ");
             if (int.TryParse(Console.ReadLine(), out opcao) == false)
             {
-                utils.ErrorMessage("Opção inválida! Tente novamente.");
+                utils.ErrorMessage("Opção inválida!");
             }
             else
             {
@@ -36,19 +32,16 @@ public class PacienteUI
                         utils.Enter();
                         break;
                     case 2:
-                        CadastrarPaciente();
+                        CadastrarPaciente(user);
                         break;
                     case 3:
-                        RemoverPaciente();
+                        AtualizarPaciente(user);
                         break;
-                    case 4:
-                        AtualizarPaciente();
-                        break;
-                    case 5:
+                    case 0:
                         //Voltando para o menu principal
                         break;
                     default:
-                        utils.ErrorMessage("Opção inválida! Tente novamente.");
+                        utils.ErrorMessage("Opção inválida!");
                         break;
                 }
             }
@@ -77,17 +70,19 @@ public class PacienteUI
 
     }
 
-    void CadastrarPaciente()
+    void CadastrarPaciente(Funcionario user)
     {
 
         var controller = new CPaciente();
         var utils = new Utils();
-        Console.Clear();
 
-        utils.Yellow();
-        Console.WriteLine("CADASTRAR PACIENTE");
-        Console.WriteLine("");
-        utils.White();
+        if (!utils.Permissao(user.Permissao, 1))
+        {
+            return;
+        }
+
+        utils.TituloMenu("CADASTRAR PACIENTE");
+
         Console.WriteLine("Digite o primeiro nome do paciente:");
         string nome = Console.ReadLine();
         Console.WriteLine("Digite o sobrenome do paciente:");
@@ -98,11 +93,10 @@ public class PacienteUI
         string cpf = Console.ReadLine();
         Console.WriteLine("Digite a data de nascimento do paciente (YYYY-MM-DD):");
         DateOnly dataNascimento;
+
         if (DateOnly.TryParse(Console.ReadLine(), out dataNascimento) == false)
         {
-            utils.Red();
-            Console.WriteLine("Data inválida, tente novamente");
-            utils.Enter();
+            utils.ErrorMessage("Data inválida!");
         }
         else
         {
@@ -111,29 +105,28 @@ public class PacienteUI
                 Paciente paciente = new Paciente(nome, sobrenome, telefone, cpf, dataNascimento);
                 controller.Inserir(paciente);
 
-                utils.Green();
-                Console.WriteLine("Paciente cadastrado com sucesso!");
-                utils.Enter();
+                utils.SuccessMessage("Paciente cadastrado com sucesso!");
             }
             catch (Exception e)
             {
-                utils.Red();
-                Console.WriteLine("Erro ao cadastrar paciente, tente novamente");
-                utils.Enter();
+                utils.ErrorMessage("Erro ao cadastrar paciente.");
+                return;
             }
         }
     }
 
-    void RemoverPaciente()
+    /*void RemoverPaciente(Funcionario user)
     {
         var controller = new CPaciente();
         var utils = new Utils();
-        Console.Clear();
 
-        utils.Yellow();
-        Console.WriteLine("REMOVER PACIENTE");
-        Console.WriteLine("");
-        utils.White();
+        if (!utils.Permissao(user.Permissao, 1))
+        {
+            return;
+        }
+
+        utils.TituloMenu("REMOVER PACIENTE");
+
         Console.WriteLine("O programa vai listar os pacientes cadastrados.");
         Console.WriteLine("Verifique o ID do paciente que deseja excluir:");
         utils.Enter();
@@ -144,9 +137,7 @@ public class PacienteUI
         int id;
         if (int.TryParse(Console.ReadLine(), out id) == false)
         {
-            utils.Red();
-            Console.WriteLine("Id inválido! Tente novamente.");
-            utils.Enter();
+            utils.ErrorMessage("ID inválido!");
         }
         else
         {
@@ -154,9 +145,7 @@ public class PacienteUI
             var paciente = controller.ObterPorId(id);
             if (paciente == null)
             {
-                utils.Red();
-                Console.WriteLine("Paciente não encontrado!");
-                utils.Enter();
+                utils.ErrorMessage("Paciente não encontrado!");
                 return;
             }
 
@@ -165,31 +154,28 @@ public class PacienteUI
                 var excluir = controller.ObterPorId(id);
                 controller.Excluir(excluir);
 
-                utils.Green();
-                Console.WriteLine("Paciente removido com sucesso!");
-                utils.Enter();
+                utils.SuccessMessage("Paciente removido com sucesso!");
             }
             catch (Exception e)
             {
-                utils.Red();
-                Console.WriteLine("Erro ao remover paciente, tente novamente");
-                utils.Enter();
+                utils.ErrorMessage("Erro ao remover paciente.");
+                return;
             }
         }
+    }*/
 
-
-    }
-
-    void AtualizarPaciente()
+    void AtualizarPaciente(Funcionario user)
     {
         var utils = new Utils();
         var controller = new CPaciente();
-        Console.Clear();
 
-        utils.Yellow();
-        Console.WriteLine("ATUALIZAR PACIENTE");
-        Console.WriteLine("");
-        utils.White();
+        if (!utils.Permissao(user.Permissao, 1))
+        {
+            return;
+        }
+
+        utils.TituloMenu("ATUALIZAR PACIENTE");
+
         Console.WriteLine("O programa vai listar os pacientes cadastrados.");
         Console.WriteLine("Verifique o ID do paciente que deseja atualizar:");
         utils.Enter();
@@ -201,57 +187,47 @@ public class PacienteUI
         if (int.TryParse(Console.ReadLine(), out id) == false)
         {
             utils.ErrorMessage("Id inválido!");
+            return;
         }
-        else
+
+        try
         {
-            try
+            //Verificando se o paciente existe
+            var paciente = controller.ObterPorId(id);
+            if (paciente == null)
             {
-                //Verificando se o paciente existe
-                var paciente = controller.ObterPorId(id);
-                if (paciente == null)
-                {
-                    utils.ErrorMessage("Paciente não encontrado!");
-                    return;
-                }
-
-                Console.WriteLine("Digite o primeiro nome do paciente:");
-                string nome = Console.ReadLine();
-                Console.WriteLine("Digite o sobrenome do paciente:");
-                string sobrenome = Console.ReadLine();
-                Console.WriteLine("Digite o telefone do paciente:");
-                string telefone = Console.ReadLine();
-                Console.WriteLine("Digite o CPF do paciente:");
-                string cpf = Console.ReadLine();
-                Console.WriteLine("Digite a data de nascimento do paciente (YYYY-MM-DD):");
-                DateOnly dataNascimento;
-                if (DateOnly.TryParse(Console.ReadLine(), out dataNascimento) == false)
-                {
-                    utils.Red();
-                    Console.WriteLine("Data inválida! Tente novamente.");
-                    utils.Enter();
-                }
-                else
-                {
-                    paciente.Nome = nome;
-                    paciente.SobreNome = sobrenome;
-                    paciente.Telefone = telefone;
-                    paciente.Cpf = cpf;
-                    paciente.DataNascimento = dataNascimento;
-
-                    controller.Atualizar(paciente);
-
-                    utils.Green();
-                    Console.WriteLine("Paciente atualizado com sucesso!");
-                    utils.Enter();
-
-                }
+                utils.ErrorMessage("Paciente não encontrado!");
+                return;
             }
-            catch (Exception e)
+
+            Console.WriteLine("Digite o primeiro nome do paciente:");
+            string nome = Console.ReadLine();
+            Console.WriteLine("Digite o sobrenome do paciente:");
+            string sobrenome = Console.ReadLine();
+            Console.WriteLine("Digite o telefone do paciente:");
+            string telefone = Console.ReadLine();
+            Console.WriteLine("Digite o CPF do paciente:");
+            string cpf = Console.ReadLine();
+            Console.WriteLine("Digite a data de nascimento do paciente (YYYY-MM-DD):");
+            DateOnly dataNascimento;
+            if (DateOnly.TryParse(Console.ReadLine(), out dataNascimento) == false)
             {
-                utils.Red();
-                Console.WriteLine("Erro ao atualizar paciente, tente novamente");
-                utils.Enter();
+                utils.ErrorMessage("Data inválida!");
+                return;
             }
+            paciente.Nome = nome;
+            paciente.SobreNome = sobrenome;
+            paciente.Telefone = telefone;
+            paciente.Cpf = cpf;
+            paciente.DataNascimento = dataNascimento;
+
+            controller.Atualizar(paciente);
+            utils.SuccessMessage("Paciente atualizado com sucesso!");
+        }
+        catch (Exception e)
+        {
+            utils.ErrorMessage("Erro ao atualizar o paciente!");
+            return;
         }
     }
 }

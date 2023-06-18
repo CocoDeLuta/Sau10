@@ -2,7 +2,7 @@ using ConsoleTables;
 
 public class CargoUI
 {
-    public void MenuCargo()
+    public void MenuCargo(Funcionario user)
     {
         var utils = new Utils();
 
@@ -31,13 +31,13 @@ public class CargoUI
                         utils.Enter();
                         break;
                     case 2:
-                        AdicionarCargo();
+                        AdicionarCargo(user);
                         break;
                     case 3:
-                        RemoverCargo();
+                        RemoverCargo(user);
                         break;
                     case 4:
-                        AtualizarCargo();
+                        AtualizarCargo(user);
                         break;
                     case 0:
                         //Voltando para o menu principal
@@ -66,16 +66,17 @@ public class CargoUI
         tabela.Write();
     }
 
-    void AdicionarCargo()
+    void AdicionarCargo(Funcionario user)
     {
         var controller = new CCargo();
         var utils = new Utils();
-        Console.Clear();
 
-        utils.Yellow();
-        Console.WriteLine("ADICIONAR CARGO");
-        utils.White();
-        Console.WriteLine("");
+        if (!utils.Permissao(user.Permissao, 3))
+        {
+            return;
+        }
+
+        utils.TituloMenu("ADICIONAR CARGO");
 
         Console.Write("Digite o nome do cargo:");
         string nome = Console.ReadLine();
@@ -100,10 +101,15 @@ public class CargoUI
         }
     }
 
-    void RemoverCargo()
+    void RemoverCargo(Funcionario user)
     {
         var utils = new Utils();
         var controller = new CCargo();
+
+        if (!utils.Permissao(user.Permissao, 3))
+        {
+            return;
+        }
 
         utils.TituloMenu("REMOVER CARGO");
 
@@ -140,10 +146,15 @@ public class CargoUI
 
     }
 
-    void AtualizarCargo()
+    void AtualizarCargo(Funcionario user)
     {
         var utils = new Utils();
         var controller = new CCargo();
+
+        if (!utils.Permissao(user.Permissao, 3))
+        {
+            return;
+        }
 
         utils.TituloMenu("ATUALIZAR CARGO");
 

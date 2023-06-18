@@ -23,4 +23,13 @@ public class Internamento
 
     }
 
+    public void ToString()
+    {
+        Console.WriteLine("---------------------------------------");
+        Console.WriteLine("Id: " + Id);
+        Console.WriteLine("Data de Entrada: " + DataEntrada);
+        Console.WriteLine("Data de Saida: " + DataSaida);
+        Console.WriteLine("Motivo do Internamento: " + Motivo);
+    }
+
 }

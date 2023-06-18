@@ -15,4 +15,20 @@ public class Paciente : Pessoa
     {
 
     }
+
+    public void ToStringNomeCompleto()
+    {
+        Console.WriteLine(Nome + " " + SobreNome);
+    }
+
+    public void ToString()
+    {
+        Console.WriteLine("---------------------------------------");
+        Console.WriteLine("Id: " + Id);
+        Console.WriteLine("Nome: " + Nome);
+        Console.WriteLine("Sobrenome: " + SobreNome);
+        Console.WriteLine("Telefone: " + Telefone);
+        Console.WriteLine("CPF: " + Cpf);
+        Console.WriteLine("Data de Nascimento: " + DataNascimento);
+    }
 }

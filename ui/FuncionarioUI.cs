@@ -1,22 +1,22 @@
 //comandos relacionados aos funcionarios como adicionar, remover, editar e listar.
+using ConsoleTables;
 using Microsoft.Identity.Client;
 
 public class FuncionarioUI
 {
-
-
     public void MenuFuncionario()
     {
 
         //Menu Funcionario
+        var utils = new Utils();
         int opcao = 0;
         while (opcao != 5)
         {
             Console.Clear();
-            Yellow();
+            utils.Yellow();
             Console.WriteLine("MENU FUNCIONÁRIO");
             Console.WriteLine("");
-            White();
+            utils.White();
             Console.WriteLine("Selecione uma opção:");
             Console.WriteLine("1 - Listar Funcionario");
             Console.WriteLine("2 - Adicionar Funcionario");
@@ -27,7 +27,7 @@ public class FuncionarioUI
             Console.Write("Opção: ");
             if (int.TryParse(Console.ReadLine(), out opcao) == false)
             {
-                OpcaoInvalida();
+                utils.OpcaoInvalida();
             }
             else
             {
@@ -35,6 +35,7 @@ public class FuncionarioUI
                 {
                     case 1:
                         Listar();
+                        utils.Enter();
                         break;
                     case 2:
                         AdicionarFuncionarios();
@@ -46,10 +47,10 @@ public class FuncionarioUI
                         AtualizarFuncionarios();
                         break;
                     case 5:
-                    //Voltando para o menu principal
+                        //Voltando para o menu principal
                         break;
                     default:
-                        OpcaoInvalida();
+                        utils.OpcaoInvalida();
                         break;
                 }
             }
@@ -60,18 +61,29 @@ public class FuncionarioUI
 
     public void Listar()
     {
+        var utils = new Utils();
         Console.Clear();
-        CFuncionario func = new CFuncionario();
-        List<Funcionario> funcionarios = func.ObterTodos();
+        CFuncionario controller = new CFuncionario();
+        List<Funcionario> funcionarios = controller.ObterTodos();
+
+        var tabela = new ConsoleTable("ID", "Nome", "Sobrenome", "Telefone", "CPF", "Cargo", "Salario");
         foreach (var item in funcionarios)
-        {
-            item.ToString();
+        { 
+            tabela.AddRow(Convert.ToString(item.Id), 
+            item.Nome, 
+            item.SobreNome, 
+            item.Telefone, 
+            item.Cpf, 
+            item.Cargo, 
+            Convert.ToString(item.Salario));
         }
-        Enter();
+        tabela.Write();
+
     }
 
     public void AdicionarFuncionarios()
     {
+        var utils = new Utils();
         Console.Clear();
         Console.WriteLine("Digite o primeiro nome do funcionario:");
         string nome = Console.ReadLine();
@@ -88,78 +100,81 @@ public class FuncionarioUI
 
         if (double.TryParse(Console.ReadLine(), out salario) == false)
         {
-            Red();
+            utils.Red();
             Console.WriteLine("Salario inválido! Tente novamente.");
-            Enter();
+            utils.Enter();
         }
         else
         {
             var funcionario = new Funcionario(nome, sobrenome, telefone, cpf, cargo, salario);
-            CFuncionario func = new CFuncionario();
-            func.Inserir(funcionario);
-            Green();
+            CFuncionario controller = new CFuncionario();
+            controller.Inserir(funcionario);
+            utils.Green();
             Console.WriteLine("Funcionário cadastrado com sucesso!");
-            Enter();
+            utils.Enter();
         }
 
     }
 
     public void RemoverFuncionarios()
     {
+        var utils = new Utils();
         Console.Clear();
         Console.WriteLine("O programa irá listar os funcionários.");
         Console.WriteLine("Verifique o ID do funcionário que deseja excluir.");
-        Enter();
+        utils.Enter();
         Listar();
         Console.WriteLine("Digite o Id do funcionário que deseja excluir:");
         int id;
         if (int.TryParse(Console.ReadLine(), out id) == false)
         {
-            Red();
+            utils.Red();
             Console.WriteLine("Id inválido! Tente novamente.");
-            Enter();
+            utils.Enter();
         }
         else
         {
-            CFuncionario func = new CFuncionario();
+            CFuncionario controller = new CFuncionario();
             try
             {
-                var excluir = func.ObterPorId(id);
-                func.Excluir(excluir);
-                Green();
+                var excluir = controller.ObterPorId(id);
+                controller.Excluir(excluir);
+                utils.Green();
                 Console.WriteLine("Funcionário excluído com sucesso!");
             }
             catch
             {
-                Red();
+                utils.Red();
                 Console.WriteLine("Id inválido! Tente novamente.");
             }
         }
 
 
-        Enter();
+        utils.Enter();
     }
 
-    public void AtualizarFuncionarios(){
+    public void AtualizarFuncionarios()
+    {
+        var utils = new Utils();
         Console.Clear();
         Console.WriteLine("O programa irá listar os funcionários.");
         Console.WriteLine("Verifique o ID do funcionário que deseja atualizar.");
-        Enter();
+        utils.Enter();
         Listar();
         Console.WriteLine("Digite o Id do funcionário que deseja atualizar:");
         int id;
         if (int.TryParse(Console.ReadLine(), out id) == false)
         {
-            Red();
+            utils.Red();
             Console.WriteLine("Id inválido! Tente novamente.");
-            Enter();
+            utils.Enter();
         }
         else
         {
-            CFuncionario func = new CFuncionario();
+            CFuncionario controller = new CFuncionario();
             try
             {
-                var atualizar = func.ObterPorId(id);
+                var atualizar = controller.ObterPorId(id);
                 Console.WriteLine("Digite o primeiro nome do funcionario:");
                 string nome = Console.ReadLine();
                 Console.WriteLine("Digite o sobrenome do funcionario:");
@@ -175,9 +190,9 @@ public class FuncionarioUI
 
                 if (double.TryParse(Console.ReadLine(), out salario) == false)
                 {
-                    Red();
+                    utils.Red();
                     Console.WriteLine("Salario inválido! Tente novamente.");
-                    Enter();
+                    utils.Enter();
                 }
                 else
                 {
@@ -187,63 +202,19 @@ public class FuncionarioUI
                     atualizar.Cpf = cpf;
                     atualizar.Cargo = cargo;
                     atualizar.Salario = salario;
-                    func.Atualizar(atualizar);
-                    Green();
+                    controller.Atualizar(atualizar);
+                    utils.Green();
                     Console.WriteLine("Funcionário atualizado com sucesso!");
-                    Enter();
+                    utils.Enter();
                 }
             }
             catch
             {
-                Red();
+                utils.Red();
                 Console.WriteLine("Id inválido! Tente novamente.");
-                Enter();
+                utils.Enter();
             }
         }
     }
-    void Enter()
-    {
-        Cyan();
-        Console.WriteLine("");
-        Console.WriteLine("Pressione ENTER para continuar...");
-        White();
-        Console.ReadLine();
-        Console.Clear();
-    }
-
-    void OpcaoInvalida()
-    {
-        Red();
-        Console.WriteLine("Opção inválida!");
-        Console.WriteLine("Tente novamente.");
-        Enter();
-        White();
-    }
-
-    void Red()
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-    }
-
-    void White()
-    {
-        Console.ForegroundColor = ConsoleColor.White;
-    }
-
-    void Green()
-    {
-        Console.ForegroundColor = ConsoleColor.Green;
-    }
-
-    void Cyan()
-    {
-        Console.ForegroundColor = ConsoleColor.Cyan;
-    }
-
-    void Yellow()
-    {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-    }
-
 }
 

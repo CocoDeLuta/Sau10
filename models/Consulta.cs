@@ -20,8 +20,12 @@ public class Consulta
 
     }
 
-    public override string ToString()
+    public void ToString()
     {
-        return $"Id: {Id} | Data: {DateTime} | Descrição: {Descricao}";
+        Console.WriteLine("---------------------------------------");
+        Console.WriteLine("Id: " + Id);
+        Console.WriteLine("" + DateTime.ToString());
+        Console.WriteLine("" + Descricao);
+        
     }
 }

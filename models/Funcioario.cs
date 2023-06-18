@@ -21,4 +21,9 @@ public class Funcionario : Pessoa
         Console.WriteLine("Telefone: " + Telefone);
         Console.WriteLine("CPF: " + Cpf);
     }
+
+    public void ToStringNomeCompleto()
+    {
+        Console.WriteLine(Nome + " " + SobreNome);
+    }
 }

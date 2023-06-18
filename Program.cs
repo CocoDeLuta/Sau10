@@ -5,7 +5,7 @@ var ConsultaUI = new ConsultaUI();
 var FuncionarioUI = new FuncionarioUI();
 var InternamentoUI = new InternamentoUI();
 var PacienteUI = new PacienteUI();
-
+var utils = new Utils();
 
 Console.Clear();
 Console.WriteLine("Seja bem vindo ao Sau10!");
@@ -13,17 +13,18 @@ Console.WriteLine("");
 Console.WriteLine("O Sau10 tem funcionalidades para gerenciar clinicas e hospitais, como:");
 Console.WriteLine("Gerenciar pacientes, internamentos, funcionarios e consultas.");
 Console.WriteLine("");
-Enter();
+
+utils.Enter();
 
 //Menu principal
 int opcao = 0;
 while (opcao != 5)
 {
     Console.Clear();
-    Yellow();
+    utils.Yellow();
     Console.WriteLine("MENU PRINCIPAL");
     Console.WriteLine("");
-    White();
+    utils.White();
     Console.WriteLine("Selecione uma opção:");
     Console.WriteLine("1 - Gerenciar pacientes");
     Console.WriteLine("2 - Gerenciar internamentos");
@@ -34,14 +35,14 @@ while (opcao != 5)
     Console.Write("Opção: ");
     if (int.TryParse(Console.ReadLine(), out opcao) == false)
     {
-        OpcaoInvalida();
+        utils.OpcaoInvalida();
     }
     else
     {
         switch (opcao)
         {
             case 1:
-                //GerenciarPacientes();
+                PacienteUI.MenuPaciente();
                 opcao = 0;
                 break;
             case 2:
@@ -53,14 +54,14 @@ while (opcao != 5)
                 opcao = 0;
                 break;
             case 4:
-                //GerenciarConsultas();
+                ConsultaUI.MenuConsulta();
                 opcao = 0;
                 break;
             case 5:
                 Console.WriteLine("Obrigado por usar o Sau10!");
                 break;
             default:
-                OpcaoInvalida();
+                utils.OpcaoInvalida();
                 break;
         }
     }
@@ -68,48 +69,3 @@ while (opcao != 5)
 
 }
 
-void Enter()
-{
-    Cyan();
-    Console.WriteLine("");
-    Console.WriteLine("Pressione ENTER para continuar...");
-    White();
-    Console.ReadLine();
-    Console.Clear();
-}
-
-void OpcaoInvalida()
-{
-    Red();
-    Console.WriteLine("Opção inválida!");
-    Console.WriteLine("Tente novamente.");
-    Enter();
-    White();
-}
-
-//mudar a cor do texto para vermelho
-void Red()
-{
-    Console.ForegroundColor = ConsoleColor.Red;
-}
-
-//mudar a cor do texto para branco 
-void White()
-{
-    Console.ForegroundColor = ConsoleColor.White;
-}
-
-void Green()
-{
-    Console.ForegroundColor = ConsoleColor.Green;
-}
-
-void Cyan()
-{
-    Console.ForegroundColor = ConsoleColor.Cyan;
-}
-
-void Yellow()
-{
-    Console.ForegroundColor = ConsoleColor.Yellow;
-}

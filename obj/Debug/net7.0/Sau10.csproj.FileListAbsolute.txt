@@ -84,3 +84,4 @@ C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\Microsoft.EntityFram
 C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\Mono.TextTemplating.dll
 C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\System.CodeDom.dll
+C:\Users\mateu\Documents\UTF\Coimbra\Sau10\bin\Debug\net7.0\ConsoleTables.dll

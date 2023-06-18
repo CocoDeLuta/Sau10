@@ -9,25 +9,21 @@ public class FuncionarioUI
 
         //Menu Funcionario
         var utils = new Utils();
-        int opcao = 0;
-        while (opcao != 5)
+        int opcao = 999;
+        while (opcao != 0)
         {
-            Console.Clear();
-            utils.Yellow();
-            Console.WriteLine("MENU FUNCIONÁRIO");
-            Console.WriteLine("");
-            utils.White();
+            utils.TituloMenu("MENU FUNCIONARIO");
             Console.WriteLine("Selecione uma opção:");
             Console.WriteLine("1 - Listar Funcionario");
-            Console.WriteLine("2 - Adicionar Funcionario");
+            Console.WriteLine("2 - Cadastrar Funcionario");
             Console.WriteLine("3 - Remover Funcionario");
             Console.WriteLine("4 - Atualizar Funcionario");
-            Console.WriteLine("5 - Voltar");
+            Console.WriteLine("0 - Voltar");
             Console.WriteLine("");
             Console.Write("Opção: ");
             if (int.TryParse(Console.ReadLine(), out opcao) == false)
             {
-                utils.OpcaoInvalida();
+                utils.ErrorMessage("Opção inválida!");
             }
             else
             {
@@ -46,11 +42,11 @@ public class FuncionarioUI
                     case 4:
                         AtualizarFuncionarios();
                         break;
-                    case 5:
+                    case 0:
                         //Voltando para o menu principal
                         break;
                     default:
-                        utils.OpcaoInvalida();
+                        utils.ErrorMessage("Opção inválida!");
                         break;
                 }
             }
@@ -68,13 +64,13 @@ public class FuncionarioUI
 
         var tabela = new ConsoleTable("ID", "Nome", "Sobrenome", "Telefone", "CPF", "Cargo", "Salario");
         foreach (var item in funcionarios)
-        { 
-            tabela.AddRow(Convert.ToString(item.Id), 
-            item.Nome, 
-            item.SobreNome, 
-            item.Telefone, 
-            item.Cpf, 
-            item.Cargo, 
+        {
+            tabela.AddRow(Convert.ToString(item.Id),
+            item.Nome,
+            item.SobreNome,
+            item.Telefone,
+            item.Cpf,
+            item.CargoId,
             Convert.ToString(item.Salario));
         }
         tabela.Write();
@@ -84,7 +80,9 @@ public class FuncionarioUI
     public void AdicionarFuncionarios()
     {
         var utils = new Utils();
-        Console.Clear();
+
+        utils.TituloMenu("CADASTRAR FUNCIONARIO");
+
         Console.WriteLine("Digite o primeiro nome do funcionario:");
         string nome = Console.ReadLine();
         Console.WriteLine("Digite o sobrenome do funcionario:");
@@ -93,20 +91,35 @@ public class FuncionarioUI
         string telefone = Console.ReadLine();
         Console.WriteLine("Digite o CPF do funcionario:");
         string cpf = Console.ReadLine();
+
+        Console.WriteLine("");
+        Console.WriteLine("Agora programa irá listar os cargos.");
+        Console.WriteLine("Verifique o ID do cargo que deseja atualizar.");
+        utils.Enter();
+
+
+
+
+        /////////////////////////////////////////////////////////////////
+
+
+
         Console.WriteLine("Digite o cargo do funcionario:");
-        string cargo = Console.ReadLine();
+        if (int.TryParse(Console.ReadLine(), out int cargoId) == false)
+        {
+            utils.ErrorMessage("ID inválido!");
+        }
+
         Console.WriteLine("Digite o salario do funcionario:");
         double salario;
 
         if (double.TryParse(Console.ReadLine(), out salario) == false)
         {
-            utils.Red();
-            Console.WriteLine("Salario inválido! Tente novamente.");
-            utils.Enter();
+            utils.ErrorMessage("Salapio inválido!");
         }
         else
         {
-            var funcionario = new Funcionario(nome, sobrenome, telefone, cpf, cargo, salario);
+            var funcionario = new Funcionario(nome, sobrenome, telefone, cpf, cargoId, salario);
             CFuncionario controller = new CFuncionario();
             controller.Inserir(funcionario);
             utils.Green();
@@ -119,44 +132,49 @@ public class FuncionarioUI
     public void RemoverFuncionarios()
     {
         var utils = new Utils();
-        Console.Clear();
+        CFuncionario controller = new CFuncionario();
+
+        utils.TituloMenu("REMOVER FUNCIONARIO");
+
         Console.WriteLine("O programa irá listar os funcionários.");
         Console.WriteLine("Verifique o ID do funcionário que deseja excluir.");
         utils.Enter();
         Listar();
+
         Console.WriteLine("Digite o Id do funcionário que deseja excluir:");
         int id;
         if (int.TryParse(Console.ReadLine(), out id) == false)
         {
-            utils.Red();
-            Console.WriteLine("Id inválido! Tente novamente.");
-            utils.Enter();
+            utils.ErrorMessage("ID inválido!");
+            return;
         }
-        else
+
+        //Verificar se o funcionario existe
+        var funcionario = controller.ObterPorId(id);
+        if (funcionario == null)
         {
-            CFuncionario controller = new CFuncionario();
-            try
-            {
-                var excluir = controller.ObterPorId(id);
-                controller.Excluir(excluir);
-                utils.Green();
-                Console.WriteLine("Funcionário excluído com sucesso!");
-            }
-            catch
-            {
-                utils.Red();
-                Console.WriteLine("Id inválido! Tente novamente.");
-            }
+            utils.ErrorMessage("Funcionário não encontrado!	");
+            return;
         }
 
-
-        utils.Enter();
+        try
+        {
+            controller.Excluir(funcionario);
+            utils.Green();
+            Console.WriteLine("Funcionário excluído com sucesso!");
+        }
+        catch
+        {
+            utils.ErrorMessage("Id inválido!");
+        }
     }
 
     public void AtualizarFuncionarios()
     {
         var utils = new Utils();
-        Console.Clear();
+
+        utils.TituloMenu("ATUALIZAR FUNCIONARIO");
+
         Console.WriteLine("O programa irá listar os funcionários.");
         Console.WriteLine("Verifique o ID do funcionário que deseja atualizar.");
         utils.Enter();
@@ -165,9 +183,7 @@ public class FuncionarioUI
         int id;
         if (int.TryParse(Console.ReadLine(), out id) == false)
         {
-            utils.Red();
-            Console.WriteLine("Id inválido! Tente novamente.");
-            utils.Enter();
+            utils.ErrorMessage("Id inválido!");
         }
         else
         {
@@ -183,16 +199,29 @@ public class FuncionarioUI
                 string telefone = Console.ReadLine();
                 Console.WriteLine("Digite o CPF do funcionario:");
                 string cpf = Console.ReadLine();
-                Console.WriteLine("Digite o cargo do funcionario:");
-                string cargo = Console.ReadLine();
-                Console.WriteLine("Digite o salario do funcionario:");
-                double salario;
 
-                if (double.TryParse(Console.ReadLine(), out salario) == false)
+
+                Console.WriteLine("");
+                Console.WriteLine("Agora programa irá listar os cargos.");
+                Console.WriteLine("Verifique o ID do cargo que deseja atualizar.");
+                utils.Enter();
+                
+                /////////////////////////////////////////////////////////////////
+
+                Console.WriteLine("Digite o cargo do funcionario:");
+                if (int.TryParse(Console.ReadLine(), out int cargoId) == false)
                 {
                     utils.Red();
-                    Console.WriteLine("Salario inválido! Tente novamente.");
+                    Console.WriteLine("Id inválido! Tente novamente.");
                     utils.Enter();
+                }
+
+                Console.WriteLine("");
+                Console.WriteLine("Digite o salario do funcionario:");
+
+                if (double.TryParse(Console.ReadLine(), out double salario) == false)
+                {
+                    utils.ErrorMessage("Opção inválida!");
                 }
                 else
                 {
@@ -200,7 +229,7 @@ public class FuncionarioUI
                     atualizar.SobreNome = sobrenome;
                     atualizar.Telefone = telefone;
                     atualizar.Cpf = cpf;
-                    atualizar.Cargo = cargo;
+                    atualizar.CargoId = cargoId;
                     atualizar.Salario = salario;
                     controller.Atualizar(atualizar);
                     utils.Green();
@@ -210,9 +239,7 @@ public class FuncionarioUI
             }
             catch
             {
-                utils.Red();
-                Console.WriteLine("Id inválido! Tente novamente.");
-                utils.Enter();
+                utils.ErrorMessage("Id inválido!");
             }
         }
     }

@@ -5,6 +5,7 @@ var ConsultaUI = new ConsultaUI();
 var FuncionarioUI = new FuncionarioUI();
 var InternamentoUI = new InternamentoUI();
 var PacienteUI = new PacienteUI();
+var CargoUI = new CargoUI();
 var utils = new Utils();
 
 Console.Clear();
@@ -17,25 +18,22 @@ Console.WriteLine("");
 utils.Enter();
 
 //Menu principal
-int opcao = 0;
-while (opcao != 5)
+int opcao = 9;
+while (opcao != 0)
 {
-    Console.Clear();
-    utils.Yellow();
-    Console.WriteLine("MENU PRINCIPAL");
-    Console.WriteLine("");
-    utils.White();
+    utils.TituloMenu("MENU PRINCIPAL");
     Console.WriteLine("Selecione uma opção:");
     Console.WriteLine("1 - Gerenciar pacientes");
     Console.WriteLine("2 - Gerenciar internamentos");
     Console.WriteLine("3 - Gerenciar funcionarios");
     Console.WriteLine("4 - Gerenciar consultas");
-    Console.WriteLine("5 - Sair");
+    Console.WriteLine("5 - Gerenciar cargos");
+    Console.WriteLine("0 - Sair");
     Console.WriteLine("");
     Console.Write("Opção: ");
     if (int.TryParse(Console.ReadLine(), out opcao) == false)
     {
-        utils.OpcaoInvalida();
+        utils.ErrorMessage("Opção inválida! Tente novamente.");
     }
     else
     {
@@ -43,29 +41,31 @@ while (opcao != 5)
         {
             case 1:
                 PacienteUI.MenuPaciente();
-                opcao = 0;
+                opcao = 999;
                 break;
             case 2:
                 //GerenciarInternamentos();
-                opcao = 0;
+                opcao = 999;
                 break;
             case 3:
                 FuncionarioUI.MenuFuncionario();
-                opcao = 0;
+                opcao = 999;
                 break;
             case 4:
                 ConsultaUI.MenuConsulta();
-                opcao = 0;
+                opcao = 999;
                 break;
             case 5:
+                CargoUI.MenuCargo();
+                opcao = 999;
+                break;
+            case 0:
                 Console.WriteLine("Obrigado por usar o Sau10!");
                 break;
             default:
-                utils.OpcaoInvalida();
+                utils.ErrorMessage("Opção inválida!");
                 break;
         }
     }
-
-
 }
 

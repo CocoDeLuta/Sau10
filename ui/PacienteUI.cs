@@ -25,7 +25,7 @@ public class PacienteUI
             Console.Write("Opção: ");
             if (int.TryParse(Console.ReadLine(), out opcao) == false)
             {
-                utils.OpcaoInvalida();
+                utils.ErrorMessage("Opção inválida! Tente novamente.");
             }
             else
             {
@@ -48,7 +48,7 @@ public class PacienteUI
                         //Voltando para o menu principal
                         break;
                     default:
-                        utils.OpcaoInvalida();
+                        utils.ErrorMessage("Opção inválida! Tente novamente.");
                         break;
                 }
             }
@@ -56,7 +56,7 @@ public class PacienteUI
 
     }
 
-    void Listar()
+    public void Listar()
     {
         var utils = new Utils();
         Console.Clear();
@@ -200,9 +200,7 @@ public class PacienteUI
         int id;
         if (int.TryParse(Console.ReadLine(), out id) == false)
         {
-            utils.Red();
-            Console.WriteLine("Id inválido! Tente novamente.");
-            utils.Enter();
+            utils.ErrorMessage("Id inválido!");
         }
         else
         {
@@ -212,9 +210,7 @@ public class PacienteUI
                 var paciente = controller.ObterPorId(id);
                 if (paciente == null)
                 {
-                    utils.Red();
-                    Console.WriteLine("Paciente não encontrado!");
-                    utils.Enter();
+                    utils.ErrorMessage("Paciente não encontrado!");
                     return;
                 }
 

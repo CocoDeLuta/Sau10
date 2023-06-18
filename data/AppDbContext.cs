@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
     public DbSet<Funcionario> Funcionarios { get; set; }
     public DbSet<Paciente> Pacientes { get; set; }
     public DbSet<Internamento> Internamentos { get; set; }
+    public DbSet<Cargo> Cargos { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

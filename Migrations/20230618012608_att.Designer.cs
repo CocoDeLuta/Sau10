@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,50 +10,41 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Sau10.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230618012608_att")]
+    partial class att
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Cargo", b =>
+            modelBuilder.Entity("Consulta", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cargos");
-                });
-
-            modelBuilder.Entity("Consulta", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly>("Data")
-                        .HasColumnType("date");
-
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("FuncionarioId")
+                    b.Property<int?>("FuncionarioId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PacienteId")
+                    b.Property<int?>("PacienteId")
                         .HasColumnType("int");
+
+                    b.Property<DateOnly>("data")
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FuncionarioId");
+
+                    b.HasIndex("PacienteId");
 
                     b.ToTable("Consultas");
                 });
@@ -63,8 +55,9 @@ namespace Sau10.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CargoId")
-                        .HasColumnType("int");
+                    b.Property<string>("Cargo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Cpf")
                         .HasColumnType("longtext");
@@ -98,11 +91,21 @@ namespace Sau10.Migrations
                     b.Property<DateOnly?>("DataSaida")
                         .HasColumnType("date");
 
+                    b.Property<int?>("FuncionarioId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Motivo")
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("PacienteId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("FuncionarioId");
+
+                    b.HasIndex("PacienteId");
 
                     b.ToTable("Internamentos");
                 });
@@ -131,6 +134,42 @@ namespace Sau10.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pacientes");
+                });
+
+            modelBuilder.Entity("Consulta", b =>
+                {
+                    b.HasOne("Funcionario", null)
+                        .WithMany("Consultas")
+                        .HasForeignKey("FuncionarioId");
+
+                    b.HasOne("Paciente", null)
+                        .WithMany("Consultas")
+                        .HasForeignKey("PacienteId");
+                });
+
+            modelBuilder.Entity("Internamento", b =>
+                {
+                    b.HasOne("Funcionario", null)
+                        .WithMany("Internamentos")
+                        .HasForeignKey("FuncionarioId");
+
+                    b.HasOne("Paciente", null)
+                        .WithMany("Internamentos")
+                        .HasForeignKey("PacienteId");
+                });
+
+            modelBuilder.Entity("Funcionario", b =>
+                {
+                    b.Navigation("Consultas");
+
+                    b.Navigation("Internamentos");
+                });
+
+            modelBuilder.Entity("Paciente", b =>
+                {
+                    b.Navigation("Consultas");
+
+                    b.Navigation("Internamentos");
                 });
 #pragma warning restore 612, 618
         }

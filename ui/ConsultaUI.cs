@@ -6,25 +6,21 @@ public class ConsultaUI
     {
         //Menu Funcionario
         var utils = new Utils();
-        int opcao = 0;
-        while (opcao != 5)
+        int opcao = 999;
+        while (opcao != 0)
         {
-            Console.Clear();
-            utils.Yellow();
-            Console.WriteLine("MENU Consulta");
-            Console.WriteLine("");
-            utils.White();
+            utils.TituloMenu("MENU CONSULTA");
             Console.WriteLine("Selecione uma opção:");
             Console.WriteLine("1 - Listar Consultas");
             Console.WriteLine("2 - Nova Consulta");
             Console.WriteLine("3 - Remover Consultas");
             Console.WriteLine("4 - Atualizar Consultas");
-            Console.WriteLine("5 - Voltar");
+            Console.WriteLine("0 - Voltar");
             Console.WriteLine("");
             Console.Write("Opção: ");
             if (int.TryParse(Console.ReadLine(), out opcao) == false)
             {
-                utils.OpcaoInvalida();
+                utils.ErrorMessage("Opção inválida!");
             }
             else
             {
@@ -42,11 +38,11 @@ public class ConsultaUI
                     case 4:
                         AtualizarConsulta();
                         break;
-                    case 5:
+                    case 0:
                         //Voltando para o menu principal
                         break;
                     default:
-                        utils.OpcaoInvalida();
+                        utils.ErrorMessage("Opção inválida!");
                         break;
                 }
             }
@@ -57,23 +53,21 @@ public class ConsultaUI
     void Listar()
     {
         var utils = new Utils();
+        var context = new AppDbContext();
         Console.Clear();
         CConsulta consulta = new CConsulta();
         CPaciente controllerPaciente = new CPaciente();
         List<Consulta> lista = consulta.ObterTodos();
         foreach (Consulta item in lista)
         {
-            var context = new AppDbContext();
-            var pacienteId = context.Database.ExecuteSqlRaw(
-                "SELECT PacienteId FROM consultas WHERE Id = " + item.Id);
+            int pacienteId = consulta.ObterIdPaciente(item.Id, context);
             Console.WriteLine("Id: " + item.Id);
-            Console.WriteLine("Id: " + -pacienteId);
+            Console.WriteLine("Id: " + pacienteId);
             try
             {
-                var paciente = controllerPaciente.ObterPorId(pacienteId);
-                paciente.ToString();
+                var paciente = controllerPaciente.ObterPorId(-pacienteId);
                 item.ToString();
-                //paciente.ToStringNomeCompleto();
+                paciente.ToStringNomeCompleto();
             }
             catch (Exception e)
             {
@@ -93,13 +87,36 @@ public class ConsultaUI
     {
         var controller = new CConsulta();
         var utils = new Utils();
-        Console.Clear();
 
-        utils.Yellow();
-        Console.WriteLine("CADASTRAR CONSULTA");
-        utils.White();
+        utils.TituloMenu("NOVA CONSULTA");
+
+        Console.Write("Digite a data da consulta (formato ano-mes-dia): ");
+        if (DateOnly.TryParse(Console.ReadLine(), out DateOnly data) == false)
+        {
+            utils.ErrorMessage("Data inválida!");
+            return;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("O programa exibirá os pacientes cadastrados.");
+        Console.WriteLine("Verifique o ID do paciente que está sendo consultado. ");
+        Console.WriteLine("Caso o paciente não esteja cadastrado, digite uma letra para voltar ao menu anterior.");
+
+        var PacienteUI = new PacienteUI();
+        PacienteUI.Listar();
+        Console.WriteLine("Digite o ID do paciente para continuar ou uma letra para voltar ao menu:");
+        if (int.TryParse(Console.ReadLine(), out int pacienteId) == false)
+        {
+            utils.ErrorMessage("ID inválido!");
+            return;
+        }
+
         Console.WriteLine("");
-        
+        Console.WriteLine("Descreva como foi a consulta, observações, etc:");
+        string descricao = Console.ReadLine();
+
+        var consulta = new Consulta(data, descricao);
+        controller.Inserir(consulta);
     }
 
     void RemoverConsulta()

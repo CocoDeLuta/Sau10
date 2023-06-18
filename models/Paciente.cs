@@ -1,8 +1,6 @@
 public class Paciente : Pessoa
 {
     public DateOnly DataNascimento { get; set; }
-    public List<Consulta> Consultas { get; set; }
-    public List<Internamento> Internamentos { get; set; }
 
     //Construtor
     public Paciente(string nome, string sobrenome, string telefone, string cpf, DateOnly dataNascimento)
@@ -18,7 +16,7 @@ public class Paciente : Pessoa
 
     public void ToStringNomeCompleto()
     {
-        Console.WriteLine(Nome + " " + SobreNome);
+        Console.WriteLine("Paciente: " + Nome + " " + SobreNome);
     }
 
     public void ToString()

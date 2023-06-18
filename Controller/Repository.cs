@@ -32,5 +32,6 @@ public class Repository<T> : IRepository<T> where T : class
         Context.Set<T>().Remove(entity);
         Context.SaveChanges();
     }
+    
 }
 

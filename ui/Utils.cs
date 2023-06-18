@@ -8,6 +8,17 @@ public class Utils
 
     }
 
+    public void TituloMenu(string titulo)
+    {
+        Console.Clear();
+        Yellow();
+        Console.WriteLine("=======================================");
+        Console.WriteLine(titulo);
+        Console.WriteLine("=======================================");
+        White();
+        Console.WriteLine("");
+    }
+
     //metodo para aguardar o usuario pressionar enter
     public void Enter()
     {
@@ -19,14 +30,21 @@ public class Utils
         Console.Clear();
     }
 
+    //metodo para mostrar uma mensagem de sucesso
+    public void SuccessMessage(string message)
+    {
+        Green();
+        Console.WriteLine(message);
+        Enter();
+    }
+
     //metodo para mostrar uma mensagem de erro
-    public void OpcaoInvalida()
+    public void ErrorMessage(string message)
     {
         Red();
-        Console.WriteLine("Opção inválida!");
-        Console.WriteLine("Tente novamente.");
+        Console.WriteLine(message);
+        Console.WriteLine("Tente novamente...");
         Enter();
-        White();
     }
 
     //mudar a cor do texto para vermelho
